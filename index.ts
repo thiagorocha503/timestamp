@@ -1,25 +1,25 @@
 import path from 'path';
-import express from "express"
+import express,{ Request, Response} from "express"
+import  cors from 'cors'
 
 const numberRegex = /^\d+$/
 var app = express();
 
 // enable CORS (https://en.wikipedia.org/wiki/Cross-origin_resource_sharing)
 // so that your API is remotely testable by FCC 
-import  cors from 'cors'
 app.use(cors({optionsSuccessStatus: 200}));  // some legacy browsers choke on 204
 
-const __dirname = path.resolve();
+// const __dirname = path.resolve();
 
 // http://expressjs.com/en/starter/static-files.html
 app.use(express.static('public'));
 
 // http://expressjs.com/en/starter/basic-routing.html
-app.get("/", function (req, res) {
+app.get("/", function (_: Request, res: Response) {
   res.sendFile(__dirname + '/views/index.html');
 });
 
-app.get("/api/:date?", function (req , res){
+app.get("/api/:date?", function (req: Request, res: Response){
   let date = req.params.date
   if(! date){
     const now = new Date()
@@ -38,6 +38,7 @@ app.get("/api/:date?", function (req , res){
   });
 });
 
-var listener = app.listen(process.env.PORT, function () {
-  console.log('Your app is listening on port ' + listener.address().port);
+const port = process.env.PORT || 3000
+app.listen(port, function () {
+  console.log('Your app is listening on port ' + port);
 });
