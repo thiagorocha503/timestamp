@@ -6,3 +6,4 @@ node_modules
 replit_zip_error_log.txt
 replit.nix
 .env
+build
