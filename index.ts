@@ -1,4 +1,3 @@
-import path from 'path';
 import express,{ Request, Response} from "express"
 import  cors from 'cors'
 
@@ -9,14 +8,18 @@ var app = express();
 // so that your API is remotely testable by FCC 
 app.use(cors({optionsSuccessStatus: 200}));  // some legacy browsers choke on 204
 
-// const __dirname = path.resolve();
+
+// view engine
+app.set('view engine', 'ejs');
+// views
+app.set('views', './views');
 
 // http://expressjs.com/en/starter/static-files.html
 app.use(express.static('public'));
 
 // http://expressjs.com/en/starter/basic-routing.html
 app.get("/", function (_: Request, res: Response) {
-  res.sendFile(__dirname + '/views/index.html');
+  res.render("index");
 });
 
 app.get("/api/:date?", function (req: Request, res: Response){
